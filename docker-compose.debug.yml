@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  rustaudio:
+    image: rustaudio
+    build:
+      context: .
+      dockerfile: ./Dockerfile

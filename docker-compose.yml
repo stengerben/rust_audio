@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  snapserver:
+    image: snapserver
+    build:
+      context: ~/snapserver
+      dockerfile: Dockerfile
+    volumes:
+      - snapfifo:/tmp/
+    ports:
+      - 1704:1704
+      - 1780:1780
+  rust_audio:
+    image: rustaudio
+    build:
+      context: ~/rust_audio
+      dockerfile: Dockerfile
+    volumes:
+      - snapfifo:/tmp/
+      - type: bind
+        source: /nfs/media/Music
+        target: /music/
+        read_only: true
+    command: tail -F anything      
+volumes:
+  snapfifo:
+    external: false
